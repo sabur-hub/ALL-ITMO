@@ -9,3 +9,4 @@
 
 [Сайт кафедры *Вычислительной техники* с заданиями к работам](https://se.ifmo.ru/ru/home)
 
+[Методички конспекти и прочии](https://notesitmo.github.io/cse-notes/first-course/firstcourse.html)
