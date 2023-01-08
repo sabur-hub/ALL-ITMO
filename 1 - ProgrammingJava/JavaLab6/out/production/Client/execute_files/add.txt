@@ -1,0 +1,3 @@
+fdsfsdfs
+info
+execute_script /Users/antondzubak/Desktop/Java/lab6/Client/src/execute_files/exec
