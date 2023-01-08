@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<project name="MispiLab3" default="music">
+    <property file="build.properties"/>
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+        <classpath>
+            <pathelement location="lib/ant-contrib-1.0b3.jar"/>
+        </classpath>
+    </taskdef>
+
+    <path id="classpath.source">
+        <fileset dir="${lib.dir}" includes="**/*.jar"/>
+    </path>
+
+    <target name="native2ascii">
+        <native2ascii src="./src/com/company/resources" dest="./src/com/company/resources_new"
+                      includes="*.properties" ext=".properties"/>
+    </target>
+
+    <target name="compile" depends="native2ascii">
+        <echo message="--- COMPILE DONE ---"/>
+        <mkdir dir="${compiled.classes}"/>
+        <mkdir dir="${compiled.tests}"/>
+        <javac destdir="${compiled.classes}" includeantruntime="false">
+            <src path="${main}"/>
+            <classpath>
+                <pathelement location="${compiled.classes}"/>
+                <path refid="classpath.source"/>
+            </classpath>
+        </javac>
+        <javac destdir="${compiled.tests}" includeantruntime="false">
+            <src path="${test}"/>
+            <classpath>
+                <pathelement location="${compiled.classes}"/>
+                <path refid="classpath.source"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="build" depends="compile">
+        <echo message="--- BUILD DONE ---"/>
+        <jar destfile="${dest.jar}" basedir="${compiled.classes}" compress="false" index="true">
+            <manifest>
+                <attribute name="Main-Class" value="com.company.Main"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="music" depends="build">
+        <echo message="--- MUSIC DONE ---"/>
+        <exec executable="cmd">
+            <arg value="/c"/>
+            <arg value="${musicPlayer} ${music}"/>
+            <arg value="-p"/>
+        </exec>
+    </target>
+
+    <target name="clean">
+        <echo message="--- CLEAN DONE ---"/>
+        <delete dir="${compiled}"/>
+    </target>
+
+    <target name="env" depends="build">
+        <echo message="--- Executing: java ${params} -jar ${dest.jar} ---"/>
+        <exec executable="cmd">
+            <arg value="/c"/>
+            <arg value="java ${params} -jar ${dest.jar}"/>
+        </exec>
+    </target>
+
+    <target name="test" depends="build">
+        <echo message="--- TEST DONE ---"/>
+        <junit fork="true" printsummary="on">
+            <formatter type="xml"/>
+            <classpath>
+                <path refid="classpath.source"/>
+                <pathelement location="${compiled.classes}"/>
+                <pathelement location="${compiled.tests}"/>
+            </classpath>
+            <batchtest todir="reports">
+                <fileset dir="${test}" includes="*Test*.java"/>
+            </batchtest>
+        </junit>
+    </target>
+
+    <target name="history">
+        <trycatch>
+            <try>
+                <runtarget target="compile"/>
+                <echo message="--- NO ERRORS, COMPILE DONE ---"/>
+            </try>
+            <catch>
+                <exec executable="cmd" outputproperty="git_log_head">
+                    <arg value="/c"/>
+                    <arg value="git log --pretty=format:%h - %an, %ar : %s | head -1"/>
+                </exec>
+                <exec executable="cmd" outputproperty="git_log_tail">
+                    <arg value="/c"/>
+                    <arg value="git log --pretty=format:%h - %an, %ar : %s | tail -1"/>
+                </exec>
+                <if>
+                    <equals arg1="${git_log_head}" arg2="${git_log_tail}"/>
+                    <then>
+                        <echo message="I cannot build the first commit. Stop"/>
+                    </then>
+                    <else>
+                        <exec executable="cmd" output="diff">
+                            <arg value="/c"/>
+                            <arg value="git diff HEAD~1"/>
+                        </exec>
+                        <exec executable="cmd">
+                            <arg value="/c"/>
+                            <arg value="git reset HEAD~1 --hard"/>
+                        </exec>
+                        <runtarget target="history"/>
+                    </else>
+                </if>
+            </catch>
+        </trycatch>
+    </target>
+</project>
