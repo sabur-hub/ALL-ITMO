@@ -1,0 +1,29 @@
+{
+  "components": [
+    {
+      "label": "Id",
+      "type": "number",
+      "id": "Field_0jopbgt",
+      "key": "version_id",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "action": "submit",
+      "label": "Sumbit",
+      "type": "button",
+      "id": "Field_00gfmqj",
+      "key": "field_0fkths7"
+    }
+  ],
+  "type": "default",
+  "id": "Form_4",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.0.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.17.0",
+  "schemaVersion": 4
+}

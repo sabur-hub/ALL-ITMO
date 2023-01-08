@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0gfy7nv" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.0.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
+  <bpmn:collaboration id="Wikipedia_Saves">
+    <bpmn:participant id="Wiki_Save" name="Update save server" processRef="Process_Wiki_Save" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_Wiki_Save" isExecutable="true">
+    <bpmn:startEvent id="Event_03tvqaf">
+      <bpmn:outgoing>Flow_17q3exe</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_01dhrmc" messageRef="Message_09hudjq" />
+    </bpmn:startEvent>
+    <bpmn:endEvent id="Event_04nlhzi">
+      <bpmn:incoming>Flow_173u3ug</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="Activity_1r4tjby" name="Save_login_and_chages" camunda:delegateExpression="${changesSaver}">
+      <bpmn:incoming>Flow_17q3exe</bpmn:incoming>
+      <bpmn:outgoing>Flow_173u3ug</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_17q3exe" sourceRef="Event_03tvqaf" targetRef="Activity_1r4tjby" />
+    <bpmn:sequenceFlow id="Flow_173u3ug" sourceRef="Activity_1r4tjby" targetRef="Event_04nlhzi" />
+  </bpmn:process>
+  <bpmn:message id="Message_09hudjq" name="saveChangesMessage" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Wikipedia_Saves">
+      <bpmndi:BPMNShape id="Participant_01rpbvp_di" bpmnElement="Wiki_Save" isHorizontal="true">
+        <dc:Bounds x="160" y="79" width="390" height="170" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_173u3ug_di" bpmnElement="Flow_173u3ug">
+        <di:waypoint x="410" y="159" />
+        <di:waypoint x="472" y="159" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_17q3exe_di" bpmnElement="Flow_17q3exe">
+        <di:waypoint x="258" y="159" />
+        <di:waypoint x="310" y="159" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_1jeto3b_di" bpmnElement="Event_03tvqaf">
+        <dc:Bounds x="222" y="141" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_04nlhzi_di" bpmnElement="Event_04nlhzi">
+        <dc:Bounds x="472" y="141" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0c7mbdl_di" bpmnElement="Activity_1r4tjby">
+        <dc:Bounds x="310" y="119" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

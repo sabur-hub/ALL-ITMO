@@ -1,0 +1,36 @@
+{
+  "components": [
+    {
+      "values": [
+        {
+          "label": "Yes",
+          "value": "true"
+        },
+        {
+          "label": "No",
+          "value": "false"
+        }
+      ],
+      "label": "Accept changes?",
+      "type": "radio",
+      "id": "Field_01q8jpx",
+      "key": "decision"
+    },
+    {
+      "action": "submit",
+      "label": "Sumbit",
+      "type": "button",
+      "id": "Field_0shczje",
+      "key": "field_0n9u8eg"
+    }
+  ],
+  "type": "default",
+  "id": "Form_5",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.0.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.17.0",
+  "schemaVersion": 4
+}

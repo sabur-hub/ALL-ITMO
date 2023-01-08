@@ -1,0 +1,20 @@
+{
+  "components": [
+    {
+      "action": "submit",
+      "label": "Get all waiting updates",
+      "type": "button",
+      "id": "Field_1eso3ev",
+      "key": "field_0vl5te8"
+    }
+  ],
+  "type": "default",
+  "id": "Form_3",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.0.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.17.0",
+  "schemaVersion": 4
+}
